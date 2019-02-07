@@ -19,7 +19,7 @@ RUN apk add --no-cache \
 RUN go get -u golang.org/x/lint/golint && \
 
 
-COPY linty/action.sh /usr/bin/github_action
-COPY linty/linty.sh /usr/bin/linty
+COPY linty/action /usr/bin/github_action
+COPY linty/linty /usr/bin/linty
 
 ENTRYPOINT ["github_action"]

@@ -9,4 +9,4 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 
 ## Usage
 
-Repo must have a `.linty.conf` file on the source tree root, or set the env var `LINTY_CONFIG` on the GitHub action config with the path inside the repo
+Repo must have a `.linty.conf` file on the source tree root

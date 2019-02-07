@@ -41,12 +41,6 @@ if [[ -f ".linty.conf" ]]; then
 	exit 1
 fi
 
-# Configuration file , Default set to .linty.conf
-if [[ -z "$LINTY_CONFIG" ]]; then
-	linty_config=$LINTY_CONFIG
-	echo "Seting linty config to $LINTY_CONFIG"
-fi
-
 URI=https://api.github.com
 API_VERSION=v3
 API_HEADER="Accept: application/vnd.github.${API_VERSION}+json"
@@ -59,10 +53,8 @@ for pkg in `go list ./...`; do
 	lint=$(golint -set_exit_status ${pkg} 2>/dev/null)
 	has_lint=$?
 
-	echo "Path to linty_config $linty_config"
-
 	# Check if the package is expected to have lint
-	if grep -Fxq $pkg "$linty_config"; then
+	if grep -Fxq $pkg ".linty.conf"; then
 		if [ "$has_lint" -eq 1 ]; then
 			# Still has lint...
 			lint_count=$(echo "$lint" | wc -l)

@@ -40,7 +40,7 @@ echo $GOPATH
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
 
-if [[ ! -f ".linty.conf" ]]; then
+if [[ ! -f ".github/linty.conf" ]]; then
 	echo "No linty conf file found"
 	exit 1
 fi

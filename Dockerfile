@@ -10,12 +10,14 @@ LABEL com.github.actions.description="Linty support an iterative process to clea
 LABEL com.github.actions.icon="activity"
 LABEL com.github.actions.color="green"
 
-RUN go get -u golang.org/x/lint/golint && \
-	apk add --no-cache \
-	bash \
+RUN apk add --no-cache \
+	bash git \
 	ca-certificates \
 	curl \
 	jq
+
+RUN go get -u golang.org/x/lint/golint && \
+
 
 COPY linty/action.sh /usr/bin/github_action
 COPY linty/linty.sh /usr/bin/linty

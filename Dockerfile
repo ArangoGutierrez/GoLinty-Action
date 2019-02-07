@@ -10,7 +10,7 @@ LABEL com.github.actions.description="Linty support an iterative process to clea
 LABEL com.github.actions.icon="activity"
 LABEL com.github.actions.color="green"
 
-RUN go get -u golang.org/x/lint/golint && \ 
+RUN go get -u golang.org/x/lint/golint && \
 	apk add --no-cache \
 	bash \
 	ca-certificates \

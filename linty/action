@@ -1,8 +1,18 @@
-#!/bin/bash
+#!/bin/sh
 set -e
+set -o pipefail
+
+if [[ ! -z "$TOKEN" ]]; then
+	GITHUB_TOKEN=$TOKEN
+fi
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
-	echo "The GITHUB_TOKEN is required."
+	echo "Set the GITHUB_TOKEN env variable."
+	exit 1
+fi
+
+if [[ -z "$GITHUB_REPOSITORY" ]]; then
+	echo "Set the GITHUB_REPOSITORY env variable."
 	exit 1
 fi
 
@@ -14,3 +24,43 @@ mkdir -p ${WORKDIR}
 cp -R /github/workspace/* ${WORKDIR}
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
+
+if [[ -f ".linty.conf" ]]; then
+	echo "No linty conf file found"
+	exit 1
+fi
+
+URI=https://api.github.com
+API_VERSION=v3
+API_HEADER="Accept: application/vnd.github.${API_VERSION}+json"
+AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
+
+main(){
+	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
+	merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
+	ref=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
+	REPO_OWNER=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
+	REPO_NAME=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
+	default_branch=$(curl -XGET -sSL \
+				-H "${AUTH_HEADER}" \
+ 				-H "${API_HEADER}" \
+				"${URI}/repos/${REPO_OWNER}/${REPO_NAME}" | jq .default_branch
+		)
+
+# Temporary table file
+tmp_file=$(mktemp /tmp/linty.$ref)
+LINTY_CONFIG="/tmp/linty.$ref"
+
+linty_out=$(linty ${WORKDIR})
+
+# the real action!
+curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
+ -X POST -d '{"body": '"$linty_out"'}' \
+ "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${PR_NUMBER}/comments"
+
+
+# Remove temporary file
+rm $tmp_file
+}
+
+main "$@"

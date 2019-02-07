@@ -48,8 +48,7 @@ main(){
 		)
 
 # Temporary table file
-tmp_file=$(touch /tmp/linty.$ref)
-LINTY_CONFIG="/tmp/linty.$ref"
+tmp_file=$(touch /tmp/linty.${ref})
 
 linty_out=$(linty $tmp_file)
 

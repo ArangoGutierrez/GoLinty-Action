@@ -11,7 +11,7 @@ LABEL com.github.actions.icon="activity"
 LABEL com.github.actions.color="green"
 
 RUN apk add --no-cache \
-	bash git grep sort \
+	bash git grep \
 	ca-certificates \
 	curl \
 	jq

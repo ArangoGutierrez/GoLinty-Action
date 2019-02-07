@@ -12,7 +12,11 @@
 # for the packages that are listed in its configuration.
 
 # Configuration file , Default set to .linty.conf
-linty_config=$LINTY_CONFIG
+if [[ -z "$LINTY_CONFIG" ]]; then
+	linty_config=$LINTY_CONFIG
+	echo "Seting linty config to $LINTY_CONFIG"
+fi
+
 tmp_file=$1
 
 for pkg in `go list ./...`; do

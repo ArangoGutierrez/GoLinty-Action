@@ -51,7 +51,7 @@ main(){
 tmp_file=$(touch /tmp/linty.$ref)
 LINTY_CONFIG="/tmp/linty.$ref"
 
-linty_out=$(linty ${WORKDIR})
+linty_out=$(linty $tmp_file)
 
 # the real action!
 curl -s -H "Authorization: token ${GITHUB_TOKEN}" \

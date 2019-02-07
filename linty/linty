@@ -13,6 +13,7 @@
 
 # Configuration file , Default set to .linty.conf
 linty_config=$LINTY_CONFIG
+tmp_file=$1
 
 for pkg in `go list ./...`; do
 	# Check package for lint

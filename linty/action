@@ -35,7 +35,7 @@ mkdir -p ${WORKDIR}
 ls -a /github/workspace/
 cp -R /github/workspace/* ${WORKDIR}
 echo -n "after copy\n"
-ls -a ${WORKDIR}
+ls -a ${WORKDIR}/
 echo $GOPATH
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}

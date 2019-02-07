@@ -1,4 +1,15 @@
 #!/bin/sh
+
+# De-linting is a time-consuming process. The aim of LINTY is to support an
+# iterative process to clear out lint. It uses a configuration file which lists
+# packages that currently contain lint, and ensures that:
+#
+#  - packages listed in the configuration are removed once they are free of lint
+#  - packages not listed in the configuration continue to be free of lint
+#
+# If either of the above statements is FALSE, LINTY prints out a warning and
+# exits. If both statements are TRUE, LINTY prints out a table of lint counts
+# for the packages that are listed in its configuration.
 set -e
 set -o pipefail
 
@@ -28,6 +39,12 @@ cd ${WORKDIR}
 if [[ -f ".linty.conf" ]]; then
 	echo "No linty conf file found"
 	exit 1
+fi
+
+# Configuration file , Default set to .linty.conf
+if [[ -z "$LINTY_CONFIG" ]]; then
+	linty_config=$LINTY_CONFIG
+	echo "Seting linty config to $LINTY_CONFIG"
 fi
 
 URI=https://api.github.com
@@ -61,5 +78,54 @@ curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
 # Remove temporary file
 rm $tmp_file
 }
+
+linty(){
+for pkg in `go list ./...`; do
+	# Check package for lint
+	lint=$(golint -set_exit_status ${pkg} 2>/dev/null)
+	has_lint=$?
+
+	# Check if the package is expected to have lint
+	if grep -Fxq $pkg "$linty_config"; then
+		if [ "$has_lint" -eq 1 ]; then
+			# Still has lint...
+			lint_count=$(echo "$lint" | wc -l)
+			printf " %5s | %s\n" "$lint_count" "$pkg" >> "$tmp_file"
+		else
+			# Lint free!
+			echo -n "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
+			echo -n "Please remove it from '$linty_config'!\n"
+			rm $tmp_file
+			exit 1
+		fi
+	else
+		if [ "$has_lint" -eq 1 ]; then
+			# New lint...
+			echo -n "$lint\n"
+			echo -n "\n"
+			echo -n "ERROR: package $pkg contains NEW lint. Please address the issues listed above!\n"
+			rm $tmp_file
+			exit 2
+		fi
+	fi
+done
+
+# Sort results by count
+sort -nr $tmp_file -o $tmp_file
+
+# Print results table
+echo -n "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
+echo -n "\n"
+echo -n " Count | Name of Linty Package\n"
+echo -n "-------+-------------------------------------------------------------------------------------------------\n"
+while IFS= read -r var
+	do
+		echo -n "$var\n"
+	done < "$tmp_file"
+echo -n "\n"
+echo -n "Help LINTY fight the good fight, golint today!\n"
+
+}
+
 
 main "$@"

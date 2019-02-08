@@ -105,7 +105,7 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
-BODY_DATA=$(printf " '{\"body\": \"%s\"}' " "$linty_out")
+BODY_DATA=$(printf " \"{\"body\": \"%s\"}\" " "$linty_out")
 echo ""
 echo "${BODY_DATA}"
 echo ""

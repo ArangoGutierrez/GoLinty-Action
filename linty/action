@@ -107,7 +107,7 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
-echo $linty_out
+echo -e $linty_out
 
 # the real action!
 curl -s -H "Authorization: token ${GITHUB_TOKEN}" \

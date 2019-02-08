@@ -107,7 +107,7 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
-JSON_BODY=$(printf " '{\"body\": \"%s\"}'' "$linty_out")
+JSON_BODY=$(printf " '{\"body\": \"%s\"}'" "$linty_out")
 
 echo "$JSON_BODY"
 

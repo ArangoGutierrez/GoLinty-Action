@@ -85,7 +85,7 @@ while IFS= read -r var
 	do
 		printf "%s" "$var\n"
 	done < "$1"
-printf "\n"
+printf "\\n"
 printf "%s" "Help LINTY fight the good fight, golint today!\n"
 }
 

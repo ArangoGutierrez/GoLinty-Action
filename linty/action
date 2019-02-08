@@ -33,7 +33,7 @@ WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
 mkdir -p ${WORKDIR}
 # copy all files from workspace to work dir
 ls -a /github/workspace/
-cp -R /github/workspace ${WORKDIR}/
+cp -R /github/workspace ${WORKDIR}
 echo -n "after copy\n"
 ls -a ${WORKDIR}/
 echo $GOPATH

@@ -97,15 +97,9 @@ echo -n "Help LINTY fight the good fight, golint today!\n"
 
 main(){
 	action=$(jq --raw-output .action "$GITHUB_EVENT_PATH")
-	merged=$(jq --raw-output .pull_request.merged "$GITHUB_EVENT_PATH")
 	ref=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
 	REPO_OWNER=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
 	REPO_NAME=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
-	default_branch=$(curl -XGET -sSL \
-				-H "${AUTH_HEADER}" \
- 				-H "${API_HEADER}" \
-				"${URI}/repos/${REPO_OWNER}/${REPO_NAME}" | jq .default_branch
-		)
 
 # Temporary table file
 tmp_file=$(touch /tmp/linty.${ref})
@@ -115,12 +109,12 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
+echo $linty_out
 
 # the real action!
 curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
  -X POST -d '{"body": '"$linty_out"'}' \
  "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${PR_NUMBER}/comments"
-
 
 # Remove temporary file
 rm $tmp_file

@@ -58,7 +58,7 @@ for pkg in `go list ./...`; do
 	has_lint=$?
 
 	# Check if the package is expected to have lint
-	if grep -Fxq $pkg ".linty.conf"; then
+	if grep -Fxq $pkg ".github/linty.conf"; then
 		if [ "$has_lint" -eq 1 ]; then
 			# Still has lint...
 			lint_count=$(echo "$lint" | wc -l)

@@ -105,9 +105,8 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
-BODY=$(printf " \"{\"body\": \"%s\"}\" " "$linty_out")
 JSON_STRING=$( jq -n \
-				--arg bd "$BODY" \
+				--arg bd "$linty_out" \
 				'{body: $bd}' )
 
 echo ""

@@ -96,10 +96,8 @@ main(){
 	ref=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
 	REPO_OWNER=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
 	REPO_NAME=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
-cat $GITHUB_EVENT_PATH
-echo -e "\n"
-echo $REPO_OWNER
-echo $REPO_NAME
+	COMMENTS_URI=$(jq --raw-output .pull_request._link.comments.href "$GITHUB_EVENT_PATH")
+
 # Temporary table file
 tmp_file=$(touch /tmp/linty.${ref})
 if [[ ! -f "/tmp/linty.${ref}" ]]; then
@@ -113,7 +111,7 @@ echo -e $linty_out
 # the real action!
 curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
  -X POST -d '{"body": '"$linty_out"'}' \
- "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${PR_NUMBER}/comments"
+ "${COMMENT_URI}"
 
 # Remove temporary file
 rm $tmp_file

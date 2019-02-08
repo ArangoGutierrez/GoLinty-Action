@@ -13,10 +13,6 @@
 set -e
 set -o pipefail
 
-if [[ ! -z "$TOKEN" ]]; then
-	GITHUB_TOKEN=$TOKEN
-fi
-
 if [[ -z "$GITHUB_TOKEN" ]]; then
 	echo "Set the GITHUB_TOKEN env variable."
 	exit 1
@@ -83,16 +79,16 @@ done
 sort -nr $1 -o $1
 
 # Print results table
-echo -n "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
-echo -n "\n"
-echo -n " Count | Name of Linty Package\n"
-echo -n "-------+-------------------------------------------------------------------------------------------------\n"
+echo -e "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
+echo -e "\n"
+echo -e " Count | Name of Linty Package\n"
+echo -e "-------+-------------------------------------------------------------------------------------------------\n"
 while IFS= read -r var
 	do
-		echo -n "$var\n"
+		echo -e "$var\n"
 	done < "$1"
-echo -n "\n"
-echo -n "Help LINTY fight the good fight, golint today!\n"
+echo -e "\n"
+echo -e "Help LINTY fight the good fight, golint today!\n"
 }
 
 main(){

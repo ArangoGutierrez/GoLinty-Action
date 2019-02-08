@@ -79,8 +79,7 @@ done
 sort -nr $1 -o $1
 
 # Print results table
-echo "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
-echo "\n"
+echo "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n\n"
 echo " Count | Name of Linty Package\n"
 echo "-------+-------------------------------------------------------------------------------------------------\n"
 while IFS= read -r var

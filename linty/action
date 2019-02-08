@@ -96,7 +96,7 @@ main(){
 	ref=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
 	REPO_OWNER=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
 	REPO_NAME=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
-	COMMENTS_URI=$(jq --raw-output .pull_request._link.comments.href "$GITHUB_EVENT_PATH")
+	ISSUE_NO=$(jq --raw-output .number "$GITHUB_EVENT_PATH")
 
 # Temporary table file
 tmp_file="/tmp/linty.${ref}"
@@ -111,7 +111,7 @@ linty_out=$(linty $tmp_file)
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
  -X POST -d '{"body": '"$linty_out"'}' \
- "${COMMENTS_URI}"
+ "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${ISSUE_NO}/comments"
 
 # Remove temporary file
 rm $tmp_file

@@ -110,7 +110,7 @@ linty_out=$(linty $tmp_file)
 
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
- -XPOST -d '{"body": '"$linty_out"'}' \
+ -X POST -d '{"body": '"$linty_out"'}' \
  "${COMMENT_URI}"
 
 # Remove temporary file

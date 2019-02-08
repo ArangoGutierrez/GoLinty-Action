@@ -5,6 +5,7 @@ De-linting is a time-consuming process. The aim of LINTY is to support an iterat
 
  - packages listed in the configuration are removed once they are free of lint
  - packages not listed in the configuration continue to be free of lint
+ 
 If either of the above statements is FALSE, LINTY prints out a warning and exits. If both statements are TRUE, LINTY prints out a table of lint counts for the packages that are listed in its configuration.
 
 ## Usage

@@ -79,16 +79,16 @@ done
 sort -nr $1 -o $1
 
 # Print results table
-echo -e "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
-echo -e "\n"
-echo -e " Count | Name of Linty Package\n"
-echo -e "-------+-------------------------------------------------------------------------------------------------\n"
+echo "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
+echo "\n"
+echo " Count | Name of Linty Package\n"
+echo "-------+-------------------------------------------------------------------------------------------------\n"
 while IFS= read -r var
 	do
-		echo -e "$var\n"
+		echo "$var\n"
 	done < "$1"
-echo -e "\n"
-echo -e "Help LINTY fight the good fight, golint today!\n"
+echo "\n"
+echo "Help LINTY fight the good fight, golint today!\n"
 }
 
 main(){

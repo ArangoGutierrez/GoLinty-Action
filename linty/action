@@ -107,11 +107,12 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
+BODY_DATA=$(printf " '{\"body\": \"%s\"}' " "$linty_out")
 
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
  -H "Content-Type": "application/json; charset=utf-8" \
- -X POST -d '{\"body\": '\"$linty_out\"'}' \
+ -X POST -d "${BODY_DATA}" \
  "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${ISSUE_NO}/comments"
 
 # Remove temporary file

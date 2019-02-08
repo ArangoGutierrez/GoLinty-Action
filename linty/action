@@ -109,6 +109,10 @@ main(){
 
 # Temporary table file
 tmp_file=$(touch /tmp/linty.${ref})
+if [[ ! -f "/tmp/linty.${ref}" ]]; then
+	echo "Failed to create /tmp/linty.${ref}"
+	exit 1
+fi
 
 linty_out=$(linty $tmp_file)
 

@@ -32,14 +32,12 @@ WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
 # create go work dir
 mkdir -p ${WORKDIR}
 # copy all files from workspace to work dir
-ls -a /github/workspace/
 cp -R /github/workspace/* ${WORKDIR}
 cp -R /github/workspace/.github ${WORKDIR}
-echo -n "after copy\n"
-ls -a ${WORKDIR}/
-echo $GOPATH
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
+ls -a .
+ls -a .github/
 
 if [[ ! -f ".github/linty.conf" ]]; then
 	echo "No linty conf file found"

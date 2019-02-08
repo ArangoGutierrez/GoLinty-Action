@@ -29,7 +29,7 @@ fi
 
 # Small hack to sanitize GOPATH
 WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
-ls -a .github/
+ls -a .linty/
 # create go work dir
 mkdir -p ${WORKDIR}
 # copy all files from workspace to work dir
@@ -40,9 +40,9 @@ cd ${WORKDIR}
 echo -n "\n"
 echo -n "\n"
 ls -a .
-ls -a .github/
+ls -a .linty/
 
-if [[ ! -f ".github/linty.conf" ]]; then
+if [[ ! -f ".linty/linty.conf" ]]; then
 	echo "No linty conf file found"
 	exit 1
 fi
@@ -60,7 +60,7 @@ for pkg in `go list ./...`; do
 	has_lint=$?
 
 	# Check if the package is expected to have lint
-	if grep -Fxq $pkg ".github/linty.conf"; then
+	if grep -Fxq $pkg ".linty/linty.conf"; then
 		if [ "$has_lint" -eq 1 ]; then
 			# Still has lint...
 			lint_count=$(echo "$lint" | wc -l)

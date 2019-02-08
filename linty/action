@@ -61,7 +61,7 @@ for pkg in `go list ./...`; do
 			echo -n "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
 			echo -n "Please remove it from 'linty.config'!\n"
 			rm $1
-			exit 1
+			exit 0
 		fi
 	else
 		if [ "$has_lint" -eq 1 ]; then
@@ -70,7 +70,7 @@ for pkg in `go list ./...`; do
 			echo -n "\n"
 			echo -n "ERROR: package $pkg contains NEW lint. Please address the issues listed above!\n"
 			rm $1
-			exit 2
+			exit 0
 		fi
 	fi
 done
@@ -109,8 +109,8 @@ fi
 linty_out=$(linty $tmp_file)
 
 # the real action!
-curl -s -H "Authorization: token ${GITHUB_TOKEN}" \
- -X POST -d '{"body": '"$linty_out"'}' \
+curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
+ -XPOST -d '{"body": '"$linty_out"'}' \
  "${COMMENT_URI}"
 
 # Remove temporary file

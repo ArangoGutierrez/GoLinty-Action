@@ -58,17 +58,17 @@ for pkg in `go list ./...`; do
 			printf " %5s | %s\n" "$lint_count" "$pkg" >> "$1"
 		else
 			# Lint free!
-			echo -n "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
-			echo -n "Please remove it from 'linty.config'!\n"
+			echo "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
+			echo "Please remove it from 'linty.config'!\n"
 			rm $1
 			exit 0
 		fi
 	else
 		if [ "$has_lint" -eq 1 ]; then
 			# New lint...
-			echo -n "$lint\n"
-			echo -n "\n"
-			echo -n "ERROR: package $pkg contains NEW lint. Please address the issues listed above!\n"
+			echo "$lint\n"
+			echo "\n"
+			echo "ERROR: package $pkg contains NEW lint. Please address the issues listed above!\n"
 			rm $1
 			exit 0
 		fi

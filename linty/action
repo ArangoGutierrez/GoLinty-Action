@@ -109,6 +109,8 @@ fi
 linty_out=$(linty $tmp_file)
 JSON_BODY=$(printf " \"{\"body\": \"%s\"}\"" "$linty_out")
 
+echo "$JSON_BODY"
+
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
  -X POST -d "${JSON_BODY}" \

@@ -96,7 +96,9 @@ main(){
 	ref=$(jq --raw-output .pull_request.head.ref "$GITHUB_EVENT_PATH")
 	REPO_OWNER=$(jq --raw-output .pull_request.head.repo.owner.login "$GITHUB_EVENT_PATH")
 	REPO_NAME=$(jq --raw-output .pull_request.head.repo.name "$GITHUB_EVENT_PATH")
-
+echo $GITHUB_EVENT_PATH
+echo $REPO_OWNER
+echo $REPO_NAME
 # Temporary table file
 tmp_file=$(touch /tmp/linty.${ref})
 if [[ ! -f "/tmp/linty.${ref}" ]]; then

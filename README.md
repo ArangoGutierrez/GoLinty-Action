@@ -9,4 +9,4 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 
 ## Usage
 
-Repo must have a `.linty.conf` file on the source tree root
+Repo must have a `.linty/linty.conf` file on the source tree root

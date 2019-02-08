@@ -119,7 +119,9 @@ curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
  "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${ISSUE_NO}/comments"
 
 # Remove temporary file
-rm $tmp_file
+if [[ -f "$tmp_file" ]]; then
+	rm $tmp_file
+fi
 }
 
 main "$@"

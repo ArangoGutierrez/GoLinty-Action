@@ -107,7 +107,7 @@ if [[ ! -f "/tmp/linty.${ref}" ]]; then
 fi
 
 linty_out=$(linty $tmp_file)
-JSON_BODY=$(printf " {\"body\": \"%S\"}" "$linty_out"")
+JSON_BODY=$(printf " {\"body\": \"%S\"}" "$linty_out")
 
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \

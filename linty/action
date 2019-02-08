@@ -99,14 +99,14 @@ main(){
 	COMMENTS_URI=$(jq --raw-output .pull_request._link.comments.href "$GITHUB_EVENT_PATH")
 
 # Temporary table file
-tmp_file=$(touch /tmp/linty.${ref})
+tmp_file="/tmp/linty.${ref}"
+touch $tmp_file
 if [[ ! -f "/tmp/linty.${ref}" ]]; then
 	echo "Failed to create /tmp/linty.${ref}"
 	exit 1
 fi
 
 linty_out=$(linty $tmp_file)
-echo -e $linty_out
 
 # the real action!
 curl -s -H "Authorization: token ${GITHUB_TOKEN}" \

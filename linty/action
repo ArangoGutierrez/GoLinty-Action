@@ -36,7 +36,6 @@ cp -R /github/workspace/* ${WORKDIR}
 cp -R /github/workspace/.linty ${WORKDIR}
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
-ls -a .linty/
 
 if [[ ! -f ".linty/linty.conf" ]]; then
 	echo "No linty conf file found"
@@ -60,12 +59,12 @@ for pkg in `go list ./...`; do
 		if [ "$has_lint" -eq 1 ]; then
 			# Still has lint...
 			lint_count=$(echo "$lint" | wc -l)
-			printf " %5s | %s\n" "$lint_count" "$pkg" >> "$tmp_file"
+			printf " %5s | %s\n" "$lint_count" "$pkg" >> "$1"
 		else
 			# Lint free!
 			echo -n "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
-			echo -n "Please remove it from '$linty_config'!\n"
-			rm $tmp_file
+			echo -n "Please remove it from 'linty.config'!\n"
+			rm $1
 			exit 1
 		fi
 	else
@@ -74,14 +73,14 @@ for pkg in `go list ./...`; do
 			echo -n "$lint\n"
 			echo -n "\n"
 			echo -n "ERROR: package $pkg contains NEW lint. Please address the issues listed above!\n"
-			rm $tmp_file
+			rm $1
 			exit 2
 		fi
 	fi
 done
 
 # Sort results by count
-sort -nr $tmp_file -o $tmp_file
+sort -nr $1 -o $1
 
 # Print results table
 echo -n "================================  L I N T Y   W A L L   O F   S H A M E  ================================\n"
@@ -91,7 +90,7 @@ echo -n "-------+---------------------------------------------------------------
 while IFS= read -r var
 	do
 		echo -n "$var\n"
-	done < "$tmp_file"
+	done < "$1"
 echo -n "\n"
 echo -n "Help LINTY fight the good fight, golint today!\n"
 }

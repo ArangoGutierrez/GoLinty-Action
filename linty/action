@@ -29,7 +29,6 @@ fi
 
 # Small hack to sanitize GOPATH
 WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
-ls -a .linty/
 # create go work dir
 mkdir -p ${WORKDIR}
 # copy all files from workspace to work dir
@@ -37,9 +36,6 @@ cp -R /github/workspace/* ${WORKDIR}
 cp -R /github/workspace/.github ${WORKDIR}
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
-echo -n "\n"
-echo -n "\n"
-ls -a .
 ls -a .linty/
 
 if [[ ! -f ".linty/linty.conf" ]]; then

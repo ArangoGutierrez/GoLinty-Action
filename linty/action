@@ -40,7 +40,7 @@ fi
 
 URI=https://api.github.com
 API_VERSION=v3
-API_HEADER="Accept: application/vnd.github.${API_VERSION}+json"
+API_HEADER="Accept: application/vnd.github.${API_VERSION}+json;application/vnd.github.antiope-preview+json"
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 
@@ -110,6 +110,7 @@ linty_out=$(linty $tmp_file)
 
 # the real action!
 curl -sSL -H "${AUTH_HEADER}" -H "${API_HEADER}" \
+ -H "Content-Type": "application/json; charset=utf-8" \
  -X POST -d '{\"body\": '\"$linty_out\"'}' \
  "${URI}/repos/${REPO_OWNER}/${REPO_NAME}/issues/${ISSUE_NO}/comments"
 

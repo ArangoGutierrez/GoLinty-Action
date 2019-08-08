@@ -11,3 +11,5 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 ## Usage
 
 Repo must have a `.linty/linty.conf` file on the source tree root
+
+> Inspired by @tri-adam 

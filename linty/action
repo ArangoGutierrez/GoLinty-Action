@@ -27,9 +27,8 @@ fi
 WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
 # create go work dir
 mkdir -p ${WORKDIR}
-# copy all files from workspace to work dir
-cp -R /github/workspace/* ${WORKDIR}
-cp -R /github/workspace/.linty ${WORKDIR}
+# map GITHUB_WORKSPACE and WORKDIR
+ln -s $GITHUB_WORKSPACE $WORKDIR
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
 

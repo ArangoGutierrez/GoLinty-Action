@@ -14,20 +14,20 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 Repo must have a `.linty/linty.conf` file on the source tree root
 
 ```yaml
-name: Linty
+name: Lint
 on:
   pull_request:
     branches:
     - master
 jobs:
 
-  linty:
+  Lint:
     name: GoLinty
     runs-on: ubuntu-latest
     steps:
+
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
-
     - name: Go-Linty
       uses: ArangoGutierrez/GoLinty-Action@go-1.12-alpine
       env:

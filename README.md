@@ -29,7 +29,7 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
     - name: Go-Linty
-      uses: ArangoGutierrez/GoLinty-Action@go-1.12-alpine
+      uses: ArangoGutierrez/GoLinty-Action@go-1.13rc1-alpine
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

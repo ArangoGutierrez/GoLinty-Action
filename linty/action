@@ -11,7 +11,7 @@
 # exits. If both statements are TRUE, LINTY prints out a table of lint counts
 # for the packages that are listed in its configuration.
 set -e
-set -o pipefail
+# set -o pipefail
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
 	echo "Set the GITHUB_TOKEN env variable."

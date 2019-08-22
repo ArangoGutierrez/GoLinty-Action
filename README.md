@@ -13,8 +13,6 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 
 Repo must have a `.linty/linty.conf` file on the source tree root
 
-See [action.yml](./action.yml)
-
 ```yaml
 name: Linty
 on:

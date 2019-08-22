@@ -23,13 +23,15 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
 	exit 1
 fi
 
-cd $RUNNER_WORKSPACE
 echo "here I am"
 pwd
 echo ""
 echo "this is by my side"
 echo ""
 ls -lha
+echo "this is at the worksapce"
+echo ""
+ls -lha $GITHUB_WORKSPACE
 echo "env"
 echo ""
 env

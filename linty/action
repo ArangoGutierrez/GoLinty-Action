@@ -23,15 +23,6 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
 	exit 1
 fi
 
-# Small hack to sanitize GOPATH
-WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
-# create go work dir
-mkdir -p ${WORKDIR}
-# map GITHUB_WORKSPACE and WORKDIR
-ln -s $GITHUB_WORKSPACE $WORKDIR
-# cd into the work dir and run all commands from there
-cd ${WORKDIR}
-
 if [[ ! -f ".linty/linty.conf" ]]; then
 	echo "No linty conf file found"
 	exit 1

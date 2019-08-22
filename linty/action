@@ -23,6 +23,7 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
 	exit 1
 fi
 
+cd $RUNNER_WORKSPACE
 echo "here I am"
 pwd
 echo ""

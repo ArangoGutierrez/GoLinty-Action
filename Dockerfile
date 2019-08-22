@@ -1,7 +1,9 @@
-FROM golang:1.11-alpine3.8
+ARG GOLANG_TAG=1.12-alpine
+
+FROM golang:$GOLANG_TAG
 MAINTAINER Eduardo Arango <eduardo@sylabs.io>
 
-LABEL version="1.0.0"
+LABEL version="1.1.0"
 LABEL repository="https://github.com/ArangoGutierrez/GoLinty-Action"
 LABEL maintainer="ArangoGutierrez"
 

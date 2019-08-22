@@ -11,12 +11,5 @@ If either of the above statements is FALSE, LINTY prints out a warning and exits
 ## Usage
 
 Repo must have a `.linty/linty.conf` file on the source tree root
-By Default GoLinty will use
-
-```
-GOLANG_TAG=1.12-alpine
-```
-
-if you want a different version just set the variable on your `.github/main.workflow`
 
 > Inspired by @tri-adam

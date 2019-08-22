@@ -23,16 +23,6 @@ if [[ -z "$GITHUB_REPOSITORY" ]]; then
 	exit 1
 fi
 
-if [[ ! -f ".linty/linty.conf" ]]; then
-	echo "No linty conf file found"
-	exit 1
-fi
-
-URI=https://api.github.com
-API_VERSION=v3
-API_HEADER="Accept: application/vnd.github.${API_VERSION}+json;application/vnd.github.antiope-preview+json"
-AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-
 echo "here I am"
 pwd
 echo ""
@@ -42,6 +32,16 @@ list
 echo "env"
 echo ""
 env
+
+if [[ ! -f ".linty/linty.conf" ]]; then
+	echo "No linty conf file found"
+	exit 1
+fi
+
+URI=https://api.github.com
+API_VERSION=v3
+API_HEADER="Accept: application/vnd.github.${API_VERSION}+json;application/vnd.github.antiope-preview+json"
+AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
 linty(){
 for pkg in `go list ./...`; do

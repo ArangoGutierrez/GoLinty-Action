@@ -1,6 +1,4 @@
-ARG GOLANG_TAG=1.12-alpine
-
-FROM golang:$GOLANG_TAG
+FROM golang:1.13rc1-alpine
 MAINTAINER Eduardo Arango <eduardo@sylabs.io>
 
 LABEL version="1.1.0"

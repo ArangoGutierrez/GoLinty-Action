@@ -28,7 +28,7 @@ pwd
 echo ""
 echo "this is by my side"
 echo ""
-list
+ls
 echo "env"
 echo ""
 env

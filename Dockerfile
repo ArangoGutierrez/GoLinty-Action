@@ -1,4 +1,4 @@
-FROM golang:1.13rc1-alpine
+FROM golang:1.12-alpine
 MAINTAINER Eduardo Arango <eduardo@sylabs.io>
 
 LABEL version="1.1.0"

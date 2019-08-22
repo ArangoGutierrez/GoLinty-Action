@@ -27,8 +27,9 @@ fi
 WORKDIR="/go/src/github.com/${GITHUB_REPOSITORY}"
 # create go work dir
 mkdir -p ${WORKDIR}
-# map GITHUB_WORKSPACE and WORKDIR
-ln -s $GITHUB_WORKSPACE $WORKDIR
+# copy all files from workspace to work dir
+cp -R /github/workspace/* ${WORKDIR}
+cp -R /github/workspace/.linty ${WORKDIR}
 # cd into the work dir and run all commands from there
 cd ${WORKDIR}
 
@@ -41,7 +42,6 @@ URI=https://api.github.com
 API_VERSION=v3
 API_HEADER="Accept: application/vnd.github.${API_VERSION}+json;application/vnd.github.antiope-preview+json"
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
-
 
 linty(){
 for pkg in `go list ./...`; do
@@ -57,7 +57,8 @@ for pkg in `go list ./...`; do
 			printf " %5s | %s\n" "$lint_count" "$pkg" >> "$1"
 		else
 			# Lint free!
-			echo -e  "WARNING: package $pkg contains NO lint, but is listed in the LINTY config.\n"
+			echo -e  "*WARNING:*"
+			echo -e  "The package $pkg is lint free, but is listed in the LINTY config.\n"
 			echo -e  "Please remove it from 'linty.config'!\n"
 			rm $1
 			exit 0
@@ -78,7 +79,7 @@ sort -nr $1 -o $1
 
 # Print results table
 echo -e "##  L I N T Y   W A L L   O F   S H A M E "
-echo -e " Count | Name of Linty Package\n"
+echo -e " Count	| Name of Linty Package\n"
 while IFS= read -r var
 	do
 		echo -e  "$var\n"

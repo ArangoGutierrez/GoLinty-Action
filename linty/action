@@ -33,6 +33,15 @@ API_VERSION=v3
 API_HEADER="Accept: application/vnd.github.${API_VERSION}+json;application/vnd.github.antiope-preview+json"
 AUTH_HEADER="Authorization: token ${GITHUB_TOKEN}"
 
+echo "here I am"
+pwd
+echo ""
+echo "this is by my side"
+echo ""
+list
+echo "env"
+echo ""
+env
 
 linty(){
 for pkg in `go list ./...`; do
